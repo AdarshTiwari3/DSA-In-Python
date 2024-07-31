@@ -91,7 +91,24 @@ class SinglyLinkedList:
                     return  #return if the value is found and deleted
                 temp = temp.next
             print("The given node is not found in the linked list")
-        
+
+    #delete a node at a specific position in the linked list
+    def delete_at_position(self, position):
+        if position < 0:
+            print("Invalid position")
+            return
+        if position == 0:
+            self.head = self.head.next #update the head to the next node
+            return
+        temp = self.head
+        while position > 1 and temp.next:
+            temp = temp.next
+            position = position - 1 #reach the till the required position
+        if position > 1:
+            print("Invalid position")
+            return
+        temp.next = temp.next.next #update the link of the previous node to the next node of the next node    
+
     #display the linked list
     def display(self):
         temp = self.head
@@ -113,10 +130,11 @@ listNode.insert_at_position(7, 3)
 listNode.insert_at_position(8, 8)
 listNode.insert_after_node(9, listNode.head.next.next)
 listNode.delete(5)
+listNode.delete_at_position(2)
 print("Linked list=",end = ' ')
 listNode.display() 
 # output: Invalid position
-# Linked list= 6 -> 2 -> 9 -> 7 -> 1 -> 3 -> None
+# Linked list= 6 -> 2 -> 7 -> 1 -> 3 -> None
 
 
         
