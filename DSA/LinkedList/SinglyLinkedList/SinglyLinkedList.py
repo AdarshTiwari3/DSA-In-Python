@@ -1,5 +1,5 @@
 #Singly Linked List implementation in Python- 
-#signly linked list is a data structure that holds a sequence of elements in a linear order.
+#singly linked list is a data structure that holds a sequence of elements in a linear order.
 
 class Node: #node signature/ blueprint
     def __init__(self, val=None, next=None):
