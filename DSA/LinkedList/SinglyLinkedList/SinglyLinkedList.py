@@ -131,10 +131,13 @@ listNode.insert_at_position(8, 8)
 listNode.insert_after_node(9, listNode.head.next.next)
 listNode.delete(5)
 listNode.delete_at_position(2)
+foundAt,isFound, value=listNode.search(7)
 print("Linked list=",end = ' ')
 listNode.display() 
+print("The value is found at index ", foundAt) if isFound else print("The value is not found") 
+print("The value is", value.val) if isFound else print("The value is not found")
 # output: Invalid position
 # Linked list= 6 -> 2 -> 7 -> 1 -> 3 -> None
-
-
+# The value is found at index  2
+# The value is 7
         
