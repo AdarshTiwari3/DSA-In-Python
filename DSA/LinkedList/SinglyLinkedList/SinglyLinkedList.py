@@ -117,6 +117,28 @@ class SinglyLinkedList:
             temp = temp.next #traverse the linked list till the end
         print("None")
 
+    def __iter__(self): #iter method is used to return the iterator object, it won't work if we don't have this method
+        return SinglyLinkedListIterator(self.head) #return the iterator object
+
+
+#using iterator to traverse the linked list
+class SinglyLinkedListIterator:
+    def __init__(self, head): 
+        self.current = head
+
+    #iterating the linked list
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current is None:
+            raise StopIteration
+        else :
+            val=self.current.val
+            self.current=self.current.next #next method in iterator is used to move to the next node
+            return val
+    
+
         
 #driver code
 listNode = SinglyLinkedList()
@@ -140,4 +162,7 @@ print("The value is", value.val) if isFound else print("The value is not found")
 # Linked list= 6 -> 2 -> 7 -> 1 -> 3 -> None
 # The value is found at index  2
 # The value is 7
+
+for i in listNode: # we made list node iterable
+    print(i, end='-->')
         
