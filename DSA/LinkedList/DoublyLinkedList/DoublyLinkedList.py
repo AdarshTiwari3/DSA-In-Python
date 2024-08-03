@@ -123,6 +123,8 @@ class DoublyLinkedList:
         if self.is_empty():
             print("The linked list is empty")
             return
+        elif self.head.next is None: # check for only one node in the linked list
+            self.head = None
         else: 
             #traverse till the end of the linked list
             temp = self.head
@@ -135,6 +137,7 @@ class DoublyLinkedList:
         if self.is_empty(): # check for empty linked list
             print("The linked list is empty")
             return
+
         else :
             if pos == 0 : # delete at the beginning
                 self.delete_at_begining()
@@ -152,12 +155,29 @@ class DoublyLinkedList:
                 print("Invalid position")
                 return
             # update the links
-            temp.prev.next = temp.next # update the link of the previous node to the next node
-            temp.next.prev = temp.prev # update the link of the next node to the previous node
+            if temp.prev is not None: # check for the previous node
+                temp.prev.next = temp.next # update the link of the previous node to the next node
+            if temp.next is not None: # check for the next node
+                temp.next.prev = temp.prev # update the link of the next node to the previous node
+            
+    # iterate the linked list
+    def __iter__(self):
+        return IteratorDLL(self.head)
 
-
-
-
+class IteratorDLL:
+    def __init__(self, head):
+        self.current = head
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current is None:
+            raise StopIteration
+        else:
+            val = self.current.val
+            self.current = self.current.next
+            return val
 
 
 DLL=DoublyLinkedList()
@@ -184,3 +204,22 @@ else:
 # Output:
 # Doubly Linked List= 20-->10-->35-->None
 # The value is not found in the linked list
+
+listNode = DoublyLinkedList()
+listNode.insert_at_beginning(1)
+listNode.insert_at_beginning(2)
+listNode.insert_at_end(3)
+listNode.insert_at_end(4)
+listNode.insert_at_beginning(5)
+listNode.insert_at_position(6, 0)
+listNode.insert_at_position(7, 3)
+listNode.insert_at_position(8, 8)
+listNode.insert_after_node(9, listNode.head.next.next)
+listNode.delete_at_begining()
+listNode.delete_at_position(2)
+listNode.display()
+print("Doubly Linked List using iterator=", end=' ')
+
+for val in listNode:
+    print(val, end='-->')
+print("None")
