@@ -2,10 +2,11 @@
 
 class Node: #node signature / Blueprint
 
-    def __init__(self, val=None, next=None, prev=None):
+    def __init__(self, prev=None, val=None, next=None):
+        self.prev=prev
         self.val=val
         self.next=next
-        self.prev=prev
+       
 
 class DoublyLinkedList:
 
@@ -19,7 +20,7 @@ class DoublyLinkedList:
     
     #insert a node at the beginning of the linked list
     def insert_at_beginning(self, val):
-        node = Node(val) #create a new node with the value, in prev and next by default it is None
+        node = Node(val=val) #create a new node with the value, in prev and next by default it is None
 
         if self.head is None:
             self.head = node
@@ -31,7 +32,7 @@ class DoublyLinkedList:
     #insert a node at the end of the linked list
 
     def insert_at_end(self, val):
-        node = Node(val)
+        node = Node(val=val)
 
         if self.head == None:
             self.head = node
@@ -47,7 +48,7 @@ class DoublyLinkedList:
     #insert a node at a specific position in the linked list
 
     def insert_at_position( self, val, pos):
-        node = Node(val)
+        node = Node(val=val)
         # check for head is None
 
         if pos==0:
@@ -97,7 +98,7 @@ class DoublyLinkedList:
     #insert after a node in the linked list
 
     def insert_after_node(self, val, checkNode):
-        node = Node(val)
+        node = Node(val=val)
         if checkNode:
             node.next = checkNode.next
             checkNode.next = node
