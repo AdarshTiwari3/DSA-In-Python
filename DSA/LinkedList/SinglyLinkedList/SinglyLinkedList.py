@@ -68,7 +68,7 @@ class SinglyLinkedList:
                 return self.index, True, temp #return the index of the value in the linked list, and True if the value is found
             temp = temp.next
             self.index = self.index + 1
-        return None #return -1 if the value is not found in the linked list
+        return None #return None if the value is not found in the linked list
     
     #insert after a node in the linked list
     def insert_after_node(self, val, checkNode):
@@ -112,7 +112,7 @@ class SinglyLinkedList:
     #display the linked list
     def display(self):
         temp = self.head
-        while temp and temp.next:
+        while temp:
             print(temp.val, end=' -> ')
             temp = temp.next #traverse the linked list till the end
         print("None")
