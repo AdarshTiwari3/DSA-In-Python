@@ -55,10 +55,19 @@ class SinglyCircularLL:
         else:
             node = Node(val)
             temp = self.head
-            for i in range(pos-1):
+            while pos > 1 and temp.next != self.head:
                 temp = temp.next
+                pos = pos - 1
+            if pos > 1:
+                print("Invalid position")
+                return
             node.next = temp.next
-            temp.next = node 
+            temp.next = node
+            if temp == self.head: # if the position is 1
+                self.head = node
+            #check for last node
+            if node.next == self.head:
+                node.next = self.head
 
     #display the linked list
     def display(self):
