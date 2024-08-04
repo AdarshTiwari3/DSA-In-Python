@@ -38,7 +38,7 @@ class SinglyCircularLL:
         node = Node (val)
         if self.head is None:
             self.head = node #point head to the new node and update the next of new node to head because it is circular
-            self.head.next = self.head
+            self.head.next = self.head       
         else:
             temp = self.head
             # check for last node 
@@ -63,11 +63,7 @@ class SinglyCircularLL:
                 return
             node.next = temp.next
             temp.next = node
-            if temp == self.head: # if the position is 1
-                self.head = node
-            #check for last node
-            if node.next == self.head:
-                node.next = self.head
+            
 
     #display the linked list
     def display(self):
@@ -94,6 +90,8 @@ class SinglyCircularLL:
     def delete_at_beginning(self):
         if self.is_empty():
             print("The linked list is empty")
+        if self.head.next == self.head: #if there is only one node
+            self.head = None
         else:
             temp = self.head
             while temp.next != self.head:
