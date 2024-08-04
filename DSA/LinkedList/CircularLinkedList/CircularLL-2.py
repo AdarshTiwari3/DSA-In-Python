@@ -133,7 +133,35 @@ class SinglyCircularLL2:
             return
         temp.next = temp.next.next
 
+    #iterating the linked list using iterator
+    def __iter__(self):
+        if self.is_empty():
+            return None
+        return circularSLLIterator(self.last.next)
 
+class circularSLLIterator:
+    def __init__(self, head):
+        self.current=head
+        self.head = head
+        self.count = 0
+
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current is None: # if the current node is None then stop the iteration
+            raise StopIteration
+        if self.current == self.head and self.count > 0:
+                raise StopIteration
+        else:
+            self.count = self.count + 1
+            val = self.current.val
+            self.current = self.current.next
+            
+            return val
+        
+        
+    
 
 
 circularSLL=SinglyCircularLL2()
@@ -155,3 +183,9 @@ circularSLL.delete_at_beginning()
 circularSLL.delete_at_end()
 circularSLL.delete_at_position(2)
 circularSLL.display()
+
+print("Circular Linked List using iterator=", end=' ')
+
+for val in circularSLL:
+    print(val, end='->')
+
