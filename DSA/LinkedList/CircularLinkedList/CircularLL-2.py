@@ -37,7 +37,8 @@ class SinglyCircularLL2:
 
     def insert_at_position(self , val , pos):
         if pos < 0 :
-            return 'Invalid position'
+            print("Invalid position")
+            return
         if pos == 0:
             self.insert_at_beginning(val)
         else:
@@ -48,25 +49,109 @@ class SinglyCircularLL2:
                 pos = pos - 1 
 
             if pos > 1:
-                return 'Invalid position'
+                print("Invalid position")
+                return
             node.next = temp.next
             temp.next = node
 
     def display(self):
-        temp = self.last.next # means head node
+         
         if self.is_empty():
             print("The linked list is empty")
             return
-        while temp != self.last:
-            print(temp.val, end="->")
+        else:
+            # means head node
+            temp = self.last.next
+            while temp != self.last:
+                print(temp.val, end="->")
+                temp = temp.next
+            print(temp.val , end= '->') # print the last node because the loop will break before printing the last node
+            # print the first node so that we could see list as a circular linked list
+            print(temp.next.val) # this is just for display purpose although it is not required
+        
+    def search(self, val):
+        temp = self.last.next
+        index = 0
+        while temp != self.last: #`last node is not checked because it is already checked in the loop
+            if temp.val == val :
+                return index, True, temp
+            temp=temp.next
+            index = index + 1
+        # last node is remaining to check
+        if temp.val == val:
+            return index, True, temp
+        return None, False, None
+    
+    def insert_after_node(self, val, checkNode):
+        if checkNode is not None:
+            node = Node(val, checkNode.next)
+            checkNode.next = node
+            if checkNode == self.last: # maintaining the last node
+                self.last = node
+        else:
+            print("The given node is not found in the linked list")
+
+    def delete_at_beginning(self):
+        if self.is_empty():
+            print("The linked list is empty")
+            return
+        if self.last.next == self.last: # if there is only one node in the linked list
+            self.last = None
+            return
+        self.last.next = self.last.next.next
+    def delete_at_end(self):
+        if self.is_empty():
+            print("The linked list is empty")
+            return
+        if self.last.next == self.last: # check for only one node in the linked list
+            self.last = None
+        else: 
+            # traverse till last -1 node
+            temp = self.last.next
+            while temp.next is not self.last:
+                temp = temp.next
+            temp.next = self.last.next
+            self.last = temp
+
+    def delete_at_position(self, pos):
+
+        if pos < 0:
+            print("Invalid position")
+            return
+        if pos ==0 :
+            self.delete_at_beginning()
+            return
+        if pos == 1:
+            self.last.next.next = self.last.next
+            return
+        temp = self.last.next
+        while pos > 1 and temp.next is not self.last.next:
             temp = temp.next
-        print(temp.val , end= '->') # print the last node because the loop will break before printing the last node
-        # print the first node so that we could see list as a circular linked list
-        print(temp.next.val) # this is just for display purpose although it is not required
+            pos = pos - 1
+        if pos > 1:
+            print("Invalid position")
+            return
+        temp.next = temp.next.next
+
 
 
 
 circularSLL=SinglyCircularLL2()
 circularSLL.insert_at_beginning(10)
 circularSLL.insert_at_beginning(29)
+circularSLL.insert_at_end(30)
+circularSLL.insert_at_end(40)
+circularSLL.insert_at_position(20,2)
+circularSLL.insert_at_position(50,0)
+circularSLL.insert_at_position(60,7)
+circularSLL.insert_after_node(70, circularSLL.last)
+index, found , node =circularSLL.search(30)
+if found:
+    print("The value is found at index ", index)
+else:
+    print("The value is not found")
+circularSLL.delete_at_beginning()
+
+circularSLL.delete_at_end()
+circularSLL.delete_at_position(2)
 circularSLL.display()
