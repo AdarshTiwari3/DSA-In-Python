@@ -9,10 +9,13 @@ class Node: #node signature / Blueprint
 
 class CircularDoublyLinkedList:
      
-    def __init__(self, head):
-        self.head=head
-        self.head.prev=self.head
-        self.head.next=self.head
+    def __init__(self, head=None):
+        if head is not None:
+            self.head=head
+            self.head.prev=self.head
+            self.head.next=self.head
+        else:
+            self.head=head
 
     # check for empty linked list
     def is_empty(self):
@@ -29,8 +32,9 @@ class CircularDoublyLinkedList:
             self.head.next=node 
         else :
             node.next=self.head
-            self.head.prev.next=node
-            self.head.prev=node
+            node.prev = self.head.prev
+            self.head.prev.next = node
+            self.head.prev = node
             self.head=node
 
     # insert a node at the end of the linked list
@@ -87,6 +91,29 @@ class CircularDoublyLinkedList:
             node.prev = temp
             node.next.prev = node
             temp.next = node
+    # display the linked list
+    def display(self):
+        if self.is_empty():
+            print("The linked list is empty")
+            return
+        else: 
+            temp = self.head
+            while temp.next != self.head or self.head.prev!=temp: # if the next of the temp is head then it is the last node
+                print(temp.val, end="->")
+                temp = temp.next
+            print(temp.val, end="->")
+            print(temp.next.val) # this is just to display the head node in circular form
+        
+
+listNode=CircularDoublyLinkedList()
+listNode.insert_at_beginning(10)
+listNode.insert_at_end(20)
+listNode.insert_at_end(30)
+listNode.insert_at_beginning(2)
+listNode.insert_at_position(15, 2)
+listNode.insert_after_node(25, listNode.head.next.next)
+listNode.display()
+
 
     
 
