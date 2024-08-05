@@ -98,11 +98,73 @@ class CircularDoublyLinkedList:
             return
         else: 
             temp = self.head
-            while temp.next != self.head or self.head.prev!=temp: # if the next of the temp is head then it is the last node
+            while temp.next!= self.head: # if the next of the temp is head then it is the last node
                 print(temp.val, end="->")
                 temp = temp.next
             print(temp.val, end="->")
             print(temp.next.val) # this is just to display the head node in circular form
+    
+    # delete a node from the linked list at the beginning
+    def delete_at_beginning(self):
+        if self.is_empty():
+            print("Linked list is empty")
+            return
+        # if we have only one node
+        if self.head.next == self.head:
+            self.head=None
+        else: 
+
+            self.head.prev.next = self.head.next
+            self.head.next.prev = self.head.prev
+            self.head = self.head.next
+
+    # delete a node from the linked list at the end
+    def delete_at_end(self):
+        if self.is_empty():
+            print("Linked list is empty")
+            return
+        # if we have only one node
+        if self.head.next == self.head:
+            self.head = None
+
+        else:
+            self.head.prev.prev.next=self.head
+            self.head.prev = self.head.prev.prev
+
+    # delete a node from the linked list at a specific position
+    def delete_at_position(self , pos):
+        if pos< 0 :
+            print("Invalid position")
+            return
+        if pos == 0:
+            self.delete_at_beginning()
+            return
+        
+        if pos == 1:
+            self.delete_at_end()
+            return
+        
+        temp = self.head
+        # traverse the linked list till the position-1 
+        while pos > 1 and temp.next != self.head:
+            temp = temp.next
+            pos = pos - 1
+        print(pos)
+        if pos > 1: # check for out of bound
+            print("Invalid position")
+            return
+        else :
+            temp.prev.next = temp.next
+            temp.next.prev = temp.prev
+    def search(self, val):
+        temp = self.head
+        self.index = 0
+        while temp.next != self.head:
+            if temp.val == val:
+                return self.index, True, temp
+            temp = temp.next
+            self.index = self.index + 1
+        return None, False, None
         
 
 listNode=CircularDoublyLinkedList()
@@ -113,6 +175,16 @@ listNode.insert_at_beginning(2)
 listNode.insert_at_position(15, 2)
 listNode.insert_after_node(25, listNode.head.next.next)
 listNode.display()
+print("List after deleting the node-")
+listNode.delete_at_end()
+listNode.delete_at_beginning()
+listNode.delete_at_position(4)
+listNode.display()
+index, found, node = listNode.search(15)
+if found:
+    print("The value is found at index", index)
+else:    
+    print("The value is not found in the linked list")
 
 
     
