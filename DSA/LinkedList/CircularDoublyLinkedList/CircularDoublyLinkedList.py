@@ -10,11 +10,11 @@ class Node: #node signature / Blueprint
 class CircularDoublyLinkedList:
      
     def __init__(self, head=None):
-        if head is not None:
-            self.head=head
-            self.head.prev=self.head
-            self.head.next=self.head
-        else:
+        # if head is not None:
+        #     self.head=head
+        #     self.head.prev=self.head
+        #     self.head.next=self.head
+        # else:
             self.head=head
 
     # check for empty linked list
@@ -158,6 +158,9 @@ class CircularDoublyLinkedList:
             temp.next.prev = temp.prev
     def search(self, val):
         temp = self.head
+        if self.is_empty():
+            print("The linked list is empty")
+            return
         self.index = 0
         while temp.next != self.head:
             if temp.val == val:
@@ -165,6 +168,31 @@ class CircularDoublyLinkedList:
             temp = temp.next
             self.index = self.index + 1
         return None, False, None
+    
+    #iterator for the linked list
+    def __iter__(self):
+        return CircularDLLIterator(self.head)
+    
+class CircularDLLIterator:
+
+    def __init__(self, head):
+        self.current = head
+        self.head = head
+        self.count = 0
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+
+        if self.current is None:
+            raise StopIteration
+        if self.current is self.head and self.count > 0:
+            raise StopIteration
+        else :
+            self.count = self.count + 1
+            val = self.current.val
+            self.current = self.current.next
+            return val
         
 
 listNode=CircularDoublyLinkedList()
@@ -185,6 +213,12 @@ if found:
     print("The value is found at index", index)
 else:    
     print("The value is not found in the linked list")
+
+print("Circular Doubly Linked List using iterator=", end=' ')
+for val in listNode:
+    print(val, end='->')
+
+print("\n")
 
 
     
