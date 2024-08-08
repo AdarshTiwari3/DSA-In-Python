@@ -25,4 +25,22 @@ class Solution:
             return head
         
         return self.reverseLinkedList(head)
+    
+
+    #using recursion
+    def reverseLL(self, head):
+        if head is None or head.next == None:
+            return head
+        else:
+            # print("node-",head.val)
+            reversedNode=self.reverseLL(head.next)
+            front=head.next
+            front.next=head # lets take a case as node [4,5] now head.next.next=head - this will reverse the links and for head.next put none there
+            head.next=None
+        
+        
+
+            # print("head-",reversedNode.val,"check=",front.val)
+            return reversedNode    
+        
         
