@@ -9,38 +9,31 @@ class Node:
 '''
 
 class Solution:
-    def reverseLL(self,head):
-        curr=head
-        prev=head
-        while curr:
-            nextNode=curr.next
-            curr.next=prev
-            prev=curr
-            curr=nextNode
-        return prev
+    def helper(self,head):
+        if head is None:
+           return 1 # base case as carry =1
+        
+        carry=self.helper(head.next) # return the value of the carry
+        # now check the data 
+        head.data+=carry
+        if head.data < 10 : # no carry , break the recursion
+            return 0 # return carry = 0 
+        
+        head.data = 0 # 0 with the value and 1 goes in carry , why zero because maximum it can go to 1+9 = 10
+        return 1 # carry = 1
+        
+    
     def addOne(self,head):
         #Returns new head of linked List.
-        reversedNode=self.reverseLL(head)
-        temp=reversedNode
-        while temp:
-            carry=1
-            temp.data = temp.data + carry
-            
-            if temp.data < 10:
-                carry=0
-                break
-            else :
-                carry = 1
-                temp.data=0
-            temp=temp.next
-        reversedNodeAfter=None
-        if carry==1:
+        carry = self.helper(head)
+        
+        # check if we have carry remain 1 even after doing all stuffs - means need to create a node
+        
+        if carry:
             newNode=Node(carry)
-            reversedNodeAfter=self.reverseLL(reversedNode)
-            newNode.next=reversedNodeAfter
-        reversedNodeAfter=self.reverseLL(reversedNode)
-        return reversedNodeAfter
-                
+            newNode.next=head
+            head=newNode
+        return head
             
         
         
@@ -96,4 +89,3 @@ if __name__ == '__main__':
         print()
 
 # } Driver Code Ends
-
