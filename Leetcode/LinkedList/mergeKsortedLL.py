@@ -30,6 +30,32 @@ class Solution:
             l2=self.merge2LL(l1,l2)
         mergedNode=l2
         return mergedNode
+
         
-        
-# time complexity: O(nlogk) where n is the total number of nodes and k is the number of linked lists
+#optimised solution
+import heapq
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        heap = []
+        head = tail = ListNode(0)
+        for i, node in enumerate(lists):
+            if node:
+                print("node-",node,"i-",i)
+                heapq.heappush(heap, (node.val,i, node)) # values are getting stored in heap, we are using just heapq library
+
+        while heap:
+            val,i,node = heapq.heappop(heap)
+            tail.next = node
+            tail = tail.next
+            if node.next: # this is for next node to be inserted
+                heapq.heappush(heap, (node.next.val,i, node.next)) #pushing val, node of next node of poped node
+
+        return head.next
+
+#time complexity is O(nlogk) where n is the total number of elements in all linked lists and k is the number of linked lists.
+#space complexity is O(k) where k is the number of linked lists using in heap
