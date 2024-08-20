@@ -1,8 +1,8 @@
 # stack implementation using linked list
 class Node:
-    def __init__(self,val):
+    def __init__(self,val=None, next=None):
         self.val=val
-        self.next=None
+        self.next=next
     
 class Stack:
     def __init__(self):
@@ -13,14 +13,9 @@ class Stack:
         return self.size==0 or self.head is None
     
     def push(self, val):
-        node=Node(val)
-        if self.head is None:
-            self.head=node
-        else:
-            node.next=self.head
-            self.head=node
-        self.size+=1
-
+        node=Node(val,self.head)
+        self.head=node
+        
     def pop(self):
         if self.is_empty():
             raise Exception("Stack is empty")
