@@ -1,8 +1,7 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         stack=[]
-        if s[0]==']' or s[0]==')' or s[0]=='}':
-            return 0
+        
         for i in range(len(s)):
             if s[i]=='(' or s[i]=='{' or s[i]=='[':
                 stack.append(s[i])
