@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         # lets find out next smaller to right and next smaller to left at any given index

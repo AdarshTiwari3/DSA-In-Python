@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def trap(self, height: List[int]) -> int:
         # 1- find left maximum and right maximum now water can be stored in b/w two but min can only hold the water
