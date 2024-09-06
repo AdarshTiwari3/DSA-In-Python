@@ -25,6 +25,9 @@ class Queue:
         return self.peek()
     
     def getRear(self):
+        if self.isEmpty():
+            print("Queue is empty")
+            return
         return self.queue[-1]
     
 
