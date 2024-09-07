@@ -37,3 +37,44 @@ class MyQueue:
 
 
 # Time complexity: O(n)
+
+
+#better approach
+
+from collections import deque
+
+class MyQueue:
+
+    def __init__(self):
+        self.st1 = deque()  
+        self.st2 = deque()  
+
+    def push(self, x: int) -> None:
+        self.st1.append(x)
+
+    def pop(self) -> int:
+        if not self.st2:
+            # Transfer all elements from st1 to st2 only if st2 is empty
+            while self.st1:
+                self.st2.append(self.st1.pop())
+        return self.st2.pop()
+
+    def peek(self) -> int:
+        if not self.st2:
+            # Transfer all elements from st1 to st2 if st2 is empty
+            while self.st1:
+                self.st2.append(self.st1.pop())
+        return self.st2[-1]  # Peek the top element of st2
+
+    def empty(self) -> bool:
+        # The queue is empty if both st1 and st2 are empty
+        return not self.st1 and not self.st2
+
+# Example usage:
+# obj = MyQueue()
+# obj.push(10)
+# obj.push(20)
+# obj.push(30)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
