@@ -15,3 +15,13 @@ class Solution:
         
 sol=Solution()
 print(sol.strStr("hello","ll")) #2
+
+
+#optimized solution
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        for i in range(len(haystack)-len(needle)+1):
+            if haystack[i:i+len(needle)]==needle:
+                return i
+            print("i",i)
+        return -1
