@@ -56,3 +56,4 @@ deque.display() #[20, 10, 30]
 deque.deleteFront()
 deque.deleteRear()
 deque.display() #[10]
+print(deque.isEmpty()) #False
