@@ -31,4 +31,36 @@ class Solution:
         # print("map=",inorderMap)
         return self.helper(inorder,postorder,inorderMap,0,len(inorder)-1,0,len(postorder)-1)
 
+
+# more optimized code
+# # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def helper(self,inorder,postorder,inorderMap,start,end):
+        if start > end:
+            return None
+
+        root=TreeNode(postorder.pop())
+
+        mid=inorderMap[root.val]
+
         
+        root.right=self.helper(inorder,postorder,inorderMap,mid+1,end) #because its postorder
+
+        root.left=self.helper(inorder,postorder,inorderMap,start,mid-1)
+
+        
+        return root
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:        
+        inorderMap={}
+        for i in range(len(inorder)):
+            inorderMap[inorder[i]]=i
+
+        # print("map=",inorderMap)
+        return self.helper(inorder,postorder,inorderMap,0,len(inorder)-1)
+
+               
