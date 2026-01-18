@@ -33,3 +33,5 @@ class Solution:
 sol=Solution()
 ans=sol.minimumDifference([1,6,5,11])
 print("ans=",ans) # 12-11 = 1
+ans2=sol.minimumDifference([1,2,7])
+print("ans=",ans2) # 7-3 = 4 or range-2*left_sum(best possible from first half) = 10-(2*3)=10-6=4 ans
