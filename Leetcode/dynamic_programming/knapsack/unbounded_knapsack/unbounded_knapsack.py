@@ -113,9 +113,9 @@ print("ans_memo=", ans_memo)
 class SolutionTabulation:
     def unboundedKnapsack(self, W: int, wt: List[int], val: List[int]) -> int:
         n = len(wt)
-        dp = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
+        dp = [[0 for _ in range(W + 1)] for _ in range(n + 1)]  # dp[n+1][W+1]=0
 
-        print(dp)
+        # print(dp)
 
         for i in range(1, n + 1):
             for j in range(1, W + 1):
@@ -138,3 +138,31 @@ ans_tab = sol_tab.unboundedKnapsack(W, wt, val)
 print("ans_tab=", ans_tab)
 
 # TC = O(n * W) SC= O(n * W)
+
+
+# 1D Solution
+
+
+class SolutionDP:
+    def unboundedKnapsack(self, W: int, wt: List[int], val: List[int]) -> int:
+        n = len(wt)
+
+        # dp[W+1]=0
+        dp = [0] * (W + 1)
+
+        for i in range(n):
+            for j in range(
+                wt[i], W + 1
+            ):  # forward loop as it will be using the previous
+                # if wt[i] <= j: this is also useful but use more iteration in this we loop for j in range(W + 1)
+                dp[j] = max(dp[j], val[i] + dp[j - wt[i]])
+
+        return dp[W]
+
+
+sol_dp = SolutionDP()
+wt = [2, 3]
+val = [4, 5]
+W = 7
+ans_dp = sol_dp.unboundedKnapsack(W, wt, val)
+print("ans_dp=", ans_dp)
