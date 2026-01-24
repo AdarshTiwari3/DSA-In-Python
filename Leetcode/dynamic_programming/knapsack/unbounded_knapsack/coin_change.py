@@ -75,7 +75,9 @@ class SolutionMemo:
 
         ans = helper(n - 1, amount)
 
-        return ans if ans != math.inf else -1
+        return (
+            ans if ans != math.inf else -1
+        )  # check after result if not possible return -1
 
 
 sol_memo = SolutionMemo()
