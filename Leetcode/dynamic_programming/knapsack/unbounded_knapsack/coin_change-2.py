@@ -113,3 +113,26 @@ ans_tab = sol_tab.change(amount, coins)
 print("ans_tab=", ans_tab)  # 4
 
 # TC=> O(n x amount) SC=> O(n x amount)
+
+
+# 1-D solution
+
+
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        n = len(coins)
+
+        # 1D Solution
+
+        dp = [0] * (amount + 1)
+
+        dp[0] = 1
+
+        for i in range(n):
+            for j in range(coins[i], amount + 1):
+                dp[j] = dp[j] + dp[j - coins[i]]
+
+        return dp[amount]
+
+
+# TC=> O(n x amount) SC=> O(amount)
