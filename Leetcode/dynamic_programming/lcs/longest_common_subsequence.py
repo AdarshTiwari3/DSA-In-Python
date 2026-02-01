@@ -57,12 +57,12 @@ class LCSMemo:
             if x[n - 1] == y[m - 1]:
                 # take so 1+
                 memo[n][m] = 1 + helper(x, y, n - 1, m - 1)
-                return memo[n][m]
 
             else:
                 # take the max of both (n , m-1) and (n-1, m)
                 memo[n][m] = max(helper(x, y, n, m - 1), helper(x, y, n - 1, m))
-                return memo[n][m]
+
+            return memo[n][m]
 
         return helper(x, y, n, m)
 
