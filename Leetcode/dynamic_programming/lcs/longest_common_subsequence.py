@@ -71,4 +71,27 @@ sol_memo = LCSMemo()
 ans_memo = sol_memo.solveLcs(x, y, n, m)
 print("ans_memo=", ans_memo)
 
+# TC = O(n * m) SC = O(n * m) + O(n + m)
+
+
+# Tabulation -
+
+
+class LCSTab:
+    def solveLcs(self, x: str, y: str, n: int, m: int) -> int:
+        dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
+
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if x[i - 1] == y[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = max(dp[i][j - 1], dp[i - 1][j])
+
+        return dp[n][m]
+
+
+sol_tab = LCSTab()
+ans_tab = sol_tab.solveLcs(x, y, n, m)
+print("ans_tab=", ans_tab)
 # TC = O(n * m) SC = O(n * m)
