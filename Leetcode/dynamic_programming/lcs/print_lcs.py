@@ -40,6 +40,9 @@ y="baabaca"
 ans=sol_tab.printLcs(x, y, len(x), len(y))
 
 print("ans=",ans) #abaa
+
+# TC=> O(n×m)+O(n+m)  here Backtracking = O(n + m)
+# SC=> O(n × m) + O(min(n,m)) here lcs list= O(min(n,m))
         
     
 
