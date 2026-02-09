@@ -52,7 +52,7 @@ class SolutionTab:
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
 
         lcs_len = dp[n][m]
-        return n - lcs_len + m - lcs_len
+        return n - lcs_len + m - lcs_len  # or return n + m - 2*lcs_len
 
 
 sol_tab = SolutionTab()
