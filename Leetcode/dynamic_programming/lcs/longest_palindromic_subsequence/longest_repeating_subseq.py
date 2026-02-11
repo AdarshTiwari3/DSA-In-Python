@@ -1,5 +1,23 @@
 # User function Template for python3
 
+#  i == j in not possibile because
+# axxyx
+# axxyx
+"""
+xx
+xx
+here repeatition is possible only 0th index of first string goes with 1st index of second string means cross only possible
+
+or s= aabb
+0 1 2 3
+a a b b
+a a b b
+
+here 0 2 from first and 1 3 from second, lcs= ab
+or 1 3 from first and 0 2 from second possible
+
+"""
+
 
 class Solution:
     def LongestRepeatingSubsequence(self, s):
