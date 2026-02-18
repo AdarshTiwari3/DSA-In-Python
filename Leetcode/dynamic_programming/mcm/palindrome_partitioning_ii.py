@@ -1,5 +1,7 @@
 import math
 
+# v.v.v.imp
+
 
 # Recursive Solution
 class Solution:
@@ -147,3 +149,126 @@ class SolutionMemo2:
             return min_cut
 
         return helper(0, n - 1)
+
+
+# using front partition pattern
+
+
+class SolutionFrontPartitionRecur:
+    def minCut(self, s: str) -> int:
+        n = len(s)
+
+        def is_palin(left, right):
+            while left < right:
+                if s[left] != s[right]:
+                    return False
+                left += 1
+                right -= 1
+            return True
+
+        def helper(i):
+            if i == n:
+                return 0
+
+            min_cut = math.inf
+
+            for k in range(i, n):
+                if is_palin(i, k):
+                    cut = 1 + helper(k + 1)
+                    min_cut = min(min_cut, cut)
+
+            return min_cut
+
+        return helper(0) - 1  # counted an extra partition after ending the last index
+
+
+# so here changing variable is just i so take memo of size n+1
+
+
+class SolutionFPMemo:
+    def minCut(self, s: str) -> int:
+        n = len(s)
+        # so here changing variable is just i so take memo of size n+1
+        memo = [-1] * (n + 1)
+
+        def is_palin(left, right):
+            while left < right:
+                if s[left] != s[right]:
+                    return False
+                left += 1
+                right -= 1
+            return True
+
+        def helper(i):
+            if i == n:
+                return 0
+
+            if memo[i] != -1:
+                return memo[i]
+
+            min_cut = math.inf
+
+            for k in range(i, n):
+                if is_palin(i, k):
+                    cut = 1 + helper(k + 1)
+                    min_cut = min(min_cut, cut)
+
+            memo[i] = min_cut
+
+            return min_cut
+
+        return helper(0) - 1  # counted an extra partition after ending the last index
+
+
+# TC => O(nxnxn) so this is still not an optimal solution because n = 2000 given which means it will be around 10^9 so TLE will be thrown here we have to optimize this in O(n x n) so calculation will be in 10^6 means accepted solution
+# SC => O(n) # recursion space
+
+
+# using palindromic dp concept TC=>O(n x n)
+
+
+class SolutionDP:
+    def minCut(self, s: str) -> int:
+        n = len(s)
+        # so here changing variable is just i so take memo of size n+1
+        memo = [-1] * (n + 1)
+
+        # here we made the palindromic substring dp using concept of palindromic substring
+        palin_dp = [[False] * n for _ in range(n)]
+
+        for end in range(n):
+            for start in range(end + 1):
+                if s[start] == s[end] and (
+                    end - start <= 2
+                    or palin_dp[start + 1][
+                        end - 1
+                    ]  # here end - start <=2 manage 1 char 2 char and if any odd char in mid but still ends are palindrome so whole forms a palindrome
+                ):
+                    palin_dp[start][end] = True
+
+        def helper(i):
+            if i == n:
+                return 0
+
+            if memo[i] != -1:
+                return memo[i]
+
+            min_cut = math.inf
+
+            for k in range(i, n):
+                if palin_dp[i][k]:
+                    cut = 1 + helper(k + 1)
+                    min_cut = min(min_cut, cut)
+
+            memo[i] = min_cut
+
+            return min_cut
+
+        return helper(0) - 1  # counted an extra partition after ending the last index
+
+
+# O(n²)   (palindrome DP)
+# +
+# O(n²)   (front partition DP)
+# =
+# TC=> O(2n²) or O(n x n)
