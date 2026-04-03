@@ -25,7 +25,6 @@ class Solution:
 
 class SolutionOptimal:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        n = len(strs)
         mp = {}
 
         for word in strs:
