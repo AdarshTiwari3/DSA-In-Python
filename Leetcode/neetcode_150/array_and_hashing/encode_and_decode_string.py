@@ -34,3 +34,7 @@ class Solution:
             i = j + 1 + length
 
         return ans
+
+
+# TC=> O(n)
+# SC=> O(n)
