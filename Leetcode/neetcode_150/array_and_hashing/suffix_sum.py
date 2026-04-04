@@ -19,6 +19,7 @@ class Solution:
 
 sol = Solution()
 arr = [3, 7, 1, 8, 10]
+# arr = [-2, 0, 3, -5, 2, -1]
 suffix_sum = sol.suffixSum(arr=arr)
 
 print("suffix_sum=", suffix_sum)  # [29, 26, 19, 18, 10]
